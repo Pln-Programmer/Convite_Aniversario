@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aniversário da Marcela - 11 Anos</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins for modern rounded look -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        partyPink: '#ec4899',
+                        partyCyan: '#06b6d4',
+                        partyGreen: '#22c55e',
+                        partyYellow: '#f59e0b',
+                        partyDark: '#111827',
+                        cardDark: '#1f2937',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0b0f19;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        .bg-doodles {
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(236, 72, 153, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #111827 0%, #050811 100%);
+        }
+        .glass-card {
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-doodles min-h-screen flex justify-center items-center p-3 sm:p-6">
+
+    <!-- Mobile Wrapper Container -->
+    <div class="w-full max-w-md mx-auto flex flex-col gap-5 relative pb-12">
+
+        <!-- HEADER SECTION -->
+        <header class="glass-card rounded-3xl p-6 shadow-2xl relative overflow-hidden border border-pink-500/30 text-center">
+            <div class="absolute -top-12 -right-12 w-32 h-32 bg-pink-500/20 rounded-full blur-2xl"></div>
+            <div class="absolute -bottom-12 -left-12 w-32 h-32 bg-cyan-500/20 rounded-full blur-2xl"></div>
+
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs font-semibold mb-4 border border-pink-500/30">
+                <i class="fa-solid fa-crown text-yellow-400"></i> VOCÊ ESTÁ CONVIDADO
+            </div>
+
+            <h1 class="text-3xl sm:text-4xl font-black tracking-tight mb-1">
+                Aniversário da <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400">Marcela</span>
+            </h1>
+            <h2 class="text-3xl sm:text-4xl font-black text-green-400 mb-5">
+                11 Anos!
+            </h2>
+
+            <div class="flex flex-wrap justify-center gap-2 mb-5">
+                <div class="flex items-center gap-2 bg-gray-800/80 px-3.5 py-1.5 rounded-full text-xs font-medium border border-gray-700 shadow-inner">
+                    <i class="fa-regular fa-calendar text-pink-400"></i>
+                    <span>31/10/2026 (Sábado)</span>
+                </div>
+                <div class="flex items-center gap-2 bg-gray-800/80 px-3.5 py-1.5 rounded-full text-xs font-medium border border-gray-700 shadow-inner">
+                    <i class="fa-regular fa-clock text-cyan-400"></i>
+                    <span>das 14:30 às 21:00</span>
+                </div>
+            </div>
+
+            <div class="bg-gray-900/90 border border-cyan-500/30 rounded-2xl p-3.5 text-xs text-cyan-200 text-left mb-6 shadow-inner leading-relaxed">
+                Chegada às <strong class="text-white">14:30</strong> na casa da Marcela. Saída na <strong class="text-white">pizzaria</strong>, por volta das <strong class="text-white">21:00</strong>, onde os pais buscam as crianças.
+            </div>
+
+            <button onclick="openRsvpModal()" class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold text-sm shadow-lg shadow-pink-500/30 transition-all transform active:scale-95 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-heart-pulse"></i> Confirmar Presença (RSVP)
+            </button>
+        </header>
+
+        <!-- COUNTDOWN SECTION -->
+        <section class="glass-card rounded-3xl p-5 shadow-xl border border-gray-700/50">
+            <div class="text-center text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
+                Contagem Regressiva
+            </div>
+            <div class="grid grid-cols-4 gap-2 text-center">
+                <div class="bg-gradient-to-b from-pink-500 to-pink-600 rounded-2xl p-3 shadow-md">
+                    <span id="days" class="block text-2xl sm:text-3xl font-black text-white">16</span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-pink-100">Dias</span>
+                </div>
+                <div class="bg-gradient-to-b from-cyan-400 to-cyan-600 rounded-2xl p-3 shadow-md">
+                    <span id="hours" class="block text-2xl sm:text-3xl font-black text-white">23</span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-cyan-100">Horas</span>
+                </div>
+                <div class="bg-gradient-to-b from-green-400 to-green-600 rounded-2xl p-3 shadow-md">
+                    <span id="minutes" class="block text-2xl sm:text-3xl font-black text-white">55</span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-green-100">Min</span>
+                </div>
+                <div class="bg-gradient-to-b from-amber-400 to-orange-500 rounded-2xl p-3 shadow-md">
+                    <span id="seconds" class="block text-2xl sm:text-3xl font-black text-white">49</span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-orange-100">Seg</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- IMPORTANT NOTICE BOX -->
+        <div class="bg-gray-900/80 border-l-4 border-amber-400 rounded-2xl p-4 shadow-md flex items-start gap-3.5">
+            <div class="bg-amber-400 text-gray-950 p-2 rounded-xl flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-triangle-exclamation text-base"></i>
+            </div>
+            <div>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-amber-400 mb-1">Aviso importante aos pais</h4>
+                <p class="text-xs text-gray-300 leading-snug">Todas as crianças devem levar a <strong class="text-white">sua própria garrafinha de água</strong> identificada com o nome.</p>
+            </div>
+        </div>
+
+        <!-- ROTEIRO DA FESTA SECTION -->
+        <section class="flex flex-col gap-4">
+            <h3 class="text-center text-xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-cyan-400 mb-1">
+                Roteiro da Festa
+            </h3>
+
+            <!-- 1ª PARADA: CASA DA MARCELA -->
+            <div class="glass-card rounded-3xl p-5 border border-pink-500/40 shadow-xl relative overflow-hidden">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-10 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center border border-pink-500/30 shrink-0">
+                        <i class="fa-solid fa-house text-sm"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-pink-400">1ª Parada</span>
+                        <h4 class="text-lg font-bold text-white leading-tight">Casa da Marcela</h4>
+                    </div>
+                </div>
+
+                <p class="text-xs text-gray-300 mb-4 leading-relaxed">
+                    Concentração inicial de todas as crianças para começar a diversão!
+                </p>
+
+                <div class="bg-gray-900/60 border border-pink-500/20 rounded-2xl p-3 mb-4 text-[11px] text-gray-300 leading-relaxed">
+                    <strong class="text-pink-300 block mb-1">Aviso aos pais:</strong> As crianças devem estar na casa da Marcela às 14:30 em ponto. Os pais apenas deixam as crianças aqui e depois as buscam na pizzaria (3ª parada), por volta das 21:00.
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <div class="w-full bg-gray-800/90 border border-gray-700 py-2.5 px-4 rounded-xl text-xs font-medium text-gray-200 flex items-center justify-between">
+                        <span class="flex items-center gap-2 truncate">
+                            <i class="fa-solid fa-location-dot text-pink-400"></i> R. Sargento Pedro Alves, nº 9 - Barro Vermelho
+                        </span>
+                    </div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Rua+Sargento+Pedro+Alves+9+Barro+Vermelho+Natal+RN" target="_blank" rel="noopener noreferrer" class="w-full bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/40 py-2.5 px-4 rounded-xl text-xs font-semibold text-pink-300 flex items-center justify-between transition-all">
+                        <span class="flex items-center gap-2 truncate">
+                            <i class="fa-solid fa-map-location-dot text-pink-400"></i> Ver no Mapa / Abrir Google Maps
+                        </span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-pink-400"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 2ª PARADA: MUNDO KIDS -->
+            <div class="glass-card rounded-3xl p-5 border border-cyan-500/40 shadow-xl relative overflow-hidden">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center border border-cyan-500/30 shrink-0">
+                        <i class="fa-solid fa-star text-sm"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-cyan-400">2ª Parada</span>
+                        <h4 class="text-lg font-bold text-white leading-tight">Mundo Kids</h4>
+                    </div>
+                </div>
+
+                <p class="text-xs text-gray-300 mb-4 leading-relaxed">
+                    Seguiremos juntos para o parque/espaço Mundo Kids para muitas brincadeiras.
+                </p>
+
+                <div class="flex flex-col gap-2">
+                    <div class="w-full bg-gray-800/90 border border-gray-700 py-2.5 px-4 rounded-xl text-xs font-medium text-gray-200 flex items-center justify-between">
+                        <span class="flex items-center gap-2 truncate">
+                            <i class="fa-solid fa-location-dot text-cyan-400"></i> Av. Coronel Estevão, 2008 - Alecrim, Natal - RN
+                        </span>
+                    </div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Av+Coronel+Estevao+2008+Alecrim+Natal+RN" target="_blank" rel="noopener noreferrer" class="w-full bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/40 py-2.5 px-4 rounded-xl text-xs font-semibold text-cyan-300 flex items-center justify-between transition-all">
+                        <span class="flex items-center gap-2 truncate">
+                            <i class="fa-solid fa-map-location-dot text-cyan-400"></i> Ver no Mapa / Abrir Google Maps
+                        </span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-cyan-400"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 3ª PARADA: PIZZARIA -->
+            <div class="glass-card rounded-3xl p-5 border border-green-500/40 shadow-xl relative overflow-hidden">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-10 rounded-xl bg-green-500/20 text-green-400 flex items-center justify-center border border-green-500/30 shrink-0">
+                        <i class="fa-solid fa-pizza-slice text-sm"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-green-400">3ª Parada</span>
+                        <h4 class="text-lg font-bold text-white leading-tight">Pizzaria</h4>
+                    </div>
+                </div>
+
+                <p class="text-xs text-gray-300 mb-4 leading-relaxed">
+                    Para fechar o dia com chave de ouro, comemoração e muita pizza!
+                </p>
+
+                <div class="bg-gray-900/60 border border-green-500/20 rounded-2xl p-3 mb-4 text-[11px] text-gray-300 leading-relaxed">
+                    <strong class="text-green-300 block mb-1">Aviso aos pais:</strong> Os pais devem buscar as crianças aqui na pizzaria. Término estimado: por volta das 21:00.
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <div class="w-full bg-gray-800/90 border border-gray-700 py-2.5 px-4 rounded-xl text-xs font-medium text-gray-200 flex items-center justify-between">
+                        <span class="flex items-center gap-2 truncate">
+                            <i class="fa-solid fa-location-dot text-green-400"></i> Av. Nascimento de Castro, 1810 - Lagoa Nova, Natal - RN
+                        </span>
+                    </div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Av+Nascimento+de+Castro+1810+Lagoa+Nova+Natal+RN+59056450" target="_blank" rel="noopener noreferrer" class="w-full bg-green-500/10 hover:bg-green-500/20 border border-green-500/40 py-2.5 px-4 rounded-xl text-xs font-semibold text-green-300 flex items-center justify-between transition-all">
+                        <span class="flex items-center gap-2 truncate">
+                            <i class="fa-solid fa-map-location-dot text-green-400"></i> Ver no Mapa / Abrir Google Maps
+                        </span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-green-400"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ATTENDEE COUNTER BUTTON -->
+        <button onclick="handleViewAttendees()" class="w-full py-3 px-5 rounded-2xl bg-gray-800/80 hover:bg-gray-700/80 border border-gray-700 text-gray-200 text-xs font-semibold shadow-md flex items-center justify-center gap-2 transition-all">
+            <i class="fa-solid fa-users text-cyan-400"></i> Ver quem vai (<span id="attendee-count">0</span>)
+        </button>
+
+        <!-- FOOTER / FINAL CTA -->
+        <footer class="glass-card rounded-3xl p-6 shadow-2xl text-center flex flex-col gap-4 border border-purple-500/30">
+            <button onclick="openRsvpModal()" class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold text-sm shadow-lg shadow-pink-500/30 transition-all transform active:scale-95 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-heart-pulse"></i> Confirmar Presença (RSVP)
+            </button>
+            <p class="text-xs text-gray-400 italic">Com carinho, Marcela e família</p>
+        </footer>
+
+    </div>
+
+    <!-- RSVP INPUT MODAL -->
+    <div id="rsvp-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-card rounded-3xl p-6 w-full max-w-xs border border-pink-500/40 text-center shadow-2xl flex flex-col gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-pink-500/20 text-pink-400 flex items-center justify-center mx-auto text-xl border border-pink-500/30">
+                <i class="fa-solid fa-signature"></i>
+            </div>
+            <div>
+                <h3 class="text-base font-bold text-white mb-1">Confirmar Presença</h3>
+                <p class="text-xs text-gray-300 leading-relaxed">Digite seu nome completo para entrar na lista de convidados:</p>
+            </div>
+            <input type="text" id="guest-name-input" placeholder="Seu nome completo..." class="w-full bg-gray-900/90 border border-gray-700 rounded-xl px-4 py-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-all">
+            <div class="flex gap-2">
+                <button onclick="closeRsvpModal()" class="w-1/2 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 font-semibold text-xs transition-all">
+                    Cancelar
+                </button>
+                <button onclick="submitRsvp()" class="w-1/2 py-2.5 rounded-xl bg-pink-500 hover:bg-pink-600 text-white font-semibold text-xs transition-all shadow-md">
+                    Confirmar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ATTENDEES LIST MODAL -->
+    <div id="attendees-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-card rounded-3xl p-6 w-full max-w-sm border border-cyan-500/40 text-center shadow-2xl flex flex-col gap-4 max-h-[80vh]">
+            <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto text-xl border border-cyan-500/30">
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <div>
+                <h3 class="text-base font-bold text-white mb-1">Lista de Presença (<span id="modal-attendee-count">0</span>)</h3>
+                <p class="text-xs text-gray-300">Convidados confirmados para a festa:</p>
+            </div>
+            <div id="attendees-list-container" class="overflow-y-auto max-h-56 flex flex-col gap-2 pr-1 text-left">
+                <!-- Dynamically populated list -->
+            </div>
+            <button onclick="closeAttendeesModal()" class="w-full py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-gray-950 font-bold text-xs transition-all shadow-md">
+                Fechar
+            </button>
+        </div>
+    </div>
+
+    <!-- EDIT GUEST MODAL -->
+    <div id="edit-guest-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] flex items-center justify-center p-4 hidden">
+        <div class="glass-card rounded-3xl p-6 w-full max-w-xs border border-cyan-500/40 text-center shadow-2xl flex flex-col gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto text-xl border border-cyan-500/30">
+                <i class="fa-solid fa-user-pen"></i>
+            </div>
+            <div>
+                <h3 class="text-base font-bold text-white mb-1">Editar Convidado</h3>
+                <p class="text-xs text-gray-300">Atualize o nome do convidado:</p>
+            </div>
+            <input type="text" id="edit-guest-input" placeholder="Novo nome..." class="w-full bg-gray-900/90 border border-gray-700 rounded-xl px-4 py-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500 transition-all">
+            <div class="flex gap-2">
+                <button onclick="closeEditModal()" class="w-1/2 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 font-semibold text-xs transition-all">
+                    Cancelar
+                </button>
+                <button onclick="saveEditedGuest()" class="w-1/2 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-gray-950 font-bold text-xs transition-all shadow-md">
+                    Salvar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONFIRM DELETE MODAL -->
+    <div id="delete-confirm-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[60] flex items-center justify-center p-4 hidden">
+        <div class="glass-card rounded-3xl p-6 w-full max-w-xs border border-pink-500/40 text-center shadow-2xl flex flex-col gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-pink-500/20 text-pink-400 flex items-center justify-center mx-auto text-xl border border-pink-500/30">
+                <i class="fa-solid fa-trash-can"></i>
+            </div>
+            <div>
+                <h3 class="text-base font-bold text-white mb-1">Excluir Convidado?</h3>
+                <p id="delete-guest-name-text" class="text-xs text-gray-300 leading-relaxed"></p>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="closeDeleteModal()" class="w-1/2 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 font-semibold text-xs transition-all">
+                    Cancelar
+                </button>
+                <button onclick="confirmDeleteGuest()" class="w-1/2 py-2.5 rounded-xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs transition-all shadow-md">
+                    Excluir
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PASSWORD PIN MODAL FOR ATTENDEES -->
+    <div id="pin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-card rounded-3xl p-6 w-full max-w-xs border border-cyan-500/40 text-center shadow-2xl flex flex-col gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto text-xl border border-cyan-500/30">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <div>
+                <h3 class="text-base font-bold text-white mb-1">Área Restrita</h3>
+                <p class="text-xs text-gray-300 leading-relaxed">Digite a senha para ver a lista de convidados:</p>
+            </div>
+            <input type="password" id="pin-input" placeholder="Digite a senha..." class="w-full bg-gray-900/90 border border-gray-700 rounded-xl px-4 py-3 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500 transition-all text-center tracking-widest">
+            <div class="flex gap-2">
+                <button onclick="closePinModal()" class="w-1/2 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 font-semibold text-xs transition-all">
+                    Cancelar
+                </button>
+                <button onclick="verifyPin()" class="w-1/2 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-gray-950 font-bold text-xs transition-all shadow-md">
+                    Entrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GENERIC MESSAGE MODAL -->
+    <div id="custom-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-card rounded-3xl p-6 w-full max-w-xs border border-pink-500/40 text-center shadow-2xl flex flex-col gap-4">
+            <div id="modal-icon" class="w-12 h-12 rounded-2xl bg-pink-500/20 text-pink-400 flex items-center justify-center mx-auto text-xl border border-pink-500/30">
+                <i class="fa-solid fa-party-horn"></i>
+            </div>
+            <div>
+                <h3 id="modal-title" class="text-base font-bold text-white mb-1">Aviso</h3>
+                <p id="modal-message" class="text-xs text-gray-300 leading-relaxed"></p>
+            </div>
+            <button onclick="closeModal()" class="w-full py-2.5 rounded-xl bg-pink-500 hover:bg-pink-600 text-white font-semibold text-xs transition-all shadow-md">
+                Entendido
+            </button>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * =========================================================================
+         * BACKEND READY CLIENT CONFIGURATION (Vercel API / External DB Integration)
+         * =========================================================================
+         * To connect with Supabase, Vercel Postgres, or MongoDB on Vercel:
+         * 1. Change API_ENDPOINT to your Vercel serverless function route (e.g., '/api/attendees')
+         * 2. The client will automatically use REST API requests (GET, POST, PUT, DELETE).
+         */
+        const API_ENDPOINT = '/api/attendees'; 
+        
+        // Fallback / Demo state if backend endpoint is not yet configured on Vercel
+        let localAttendeesCache = JSON.parse(localStorage.getItem('marcela_cloud_mock_v1') || '["Maria Silva", "João Pedro", "Ana Clara"]');
+        let editingIndex = null;
+        let deletingIndex = null;
+
+        async function fetchAttendeesFromBackend() {
+            try {
+                // If you deploy your /api/attendees endpoint on Vercel, uncomment below:
+                /*
+                const response = await fetch(API_ENDPOINT);
+                if (response.ok) {
+                    const data = await response.json();
+                    return data;
+                }
+                */
+               return localAttendeesCache;
+            } catch (err) {
+                console.warn('Backend offline, using local storage fallback:', err);
+                return localAttendeesCache;
+            }
+        }
+
+        async function saveAttendeeToBackend(name) {
+            try {
+                /*
+                await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name })
+                });
+                */
+                if (!localAttendeesCache.map(n => n.toLowerCase()).includes(name.toLowerCase())) {
+                    localAttendeesCache.push(name);
+                    localStorage.setItem('marcela_cloud_mock_v1', JSON.stringify(localAttendeesCache));
+                }
+                updateAttendeeCounter();
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function updateAttendeeInBackend(index, newName) {
+            try {
+                /*
+                await fetch(`${API_ENDPOINT}/${index}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: newName })
+                });
+                */
+                localAttendeesCache[index] = newName;
+                localStorage.setItem('marcela_cloud_mock_v1', JSON.stringify(localAttendeesCache));
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function deleteAttendeeFromBackend(index) {
+            try {
+                /*
+                await fetch(`${API_ENDPOINT}/${index}`, {
+                    method: 'DELETE'
+                });
+                */
+                localAttendeesCache.splice(index, 1);
+                localStorage.setItem('marcela_cloud_mock_v1', JSON.stringify(localAttendeesCache));
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function updateAttendeeCounter() {
+            const list = await fetchAttendeesFromBackend();
+            document.getElementById('attendee-count').innerText = list.length;
+        }
+
+        // Initialize counter
+        updateAttendeeCounter();
+
+        // Countdown Timer Logic
+        function updateCountdown() {
+            const eventDate = new Date('2026-10-31T14:30:00').getTime();
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                document.getElementById('days').innerText = '00';
+                document.getElementById('hours').innerText = '00';
+                document.getElementById('minutes').innerText = '00';
+                document.getElementById('seconds').innerText = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Modal Controls
+        function openRsvpModal() {
+            document.getElementById('guest-name-input').value = '';
+            document.getElementById('rsvp-modal').classList.remove('hidden');
+            setTimeout(() => document.getElementById('guest-name-input').focus(), 100);
+        }
+
+        function closeRsvpModal() {
+            document.getElementById('rsvp-modal').classList.add('hidden');
+        }
+
+        async function submitRsvp() {
+            const nameInput = document.getElementById('guest-name-input');
+            const name = nameInput.value.trim();
+
+            if (!name) {
+                showModal('Atenção', 'Por favor, digite seu nome para confirmar presença.', 'fa-solid fa-triangle-exclamation');
+                return;
+            }
+
+            await saveAttendeeToBackend(name);
+            closeRsvpModal();
+            showModal('Presença Confirmada!', `Obrigado(a) ${name}! Sua presença foi gravada com sucesso.`, 'fa-solid fa-heart');
+        }
+
+        function handleViewAttendees() {
+            document.getElementById('pin-input').value = '';
+            document.getElementById('pin-modal').classList.remove('hidden');
+            setTimeout(() => document.getElementById('pin-input').focus(), 100);
+        }
+
+        function closePinModal() {
+            document.getElementById('pin-modal').classList.add('hidden');
+        }
+
+        function verifyPin() {
+            const pinInput = document.getElementById('pin-input').value.trim();
+            const correctPin = '1234';
+
+            if (pinInput === correctPin || pinInput.toLowerCase() === 'marcela') {
+                closePinModal();
+                openAttendeesListModal();
+            } else {
+                showModal('Senha Incorreta', 'A senha informada está incorreta. Tente novamente.', 'fa-solid fa-triangle-exclamation');
+            }
+        }
+
+        async function openAttendeesListModal() {
+            const attendees = await fetchAttendeesFromBackend();
+            document.getElementById('modal-attendee-count').innerText = attendees.length;
+            const container = document.getElementById('attendees-list-container');
+            
+            if (attendees.length === 0) {
+                container.innerHTML = `<p class="text-xs text-gray-400 text-center py-4 italic">Nenhum convidado confirmado ainda. Seja o primeiro!</p>`;
+            } else {
+                container.innerHTML = attendees.map((name, index) => `
+                    <div class="bg-gray-900/80 border border-gray-800 rounded-xl px-3 py-2 text-xs text-gray-200 flex items-center justify-between gap-2">
+                        <span class="font-medium truncate flex-1"><i class="fa-solid fa-user-check text-green-400 mr-2"></i>${name}</span>
+                        <div class="flex items-center gap-1 shrink-0">
+                            <button onclick="openEditModal(${index})" title="Editar" class="w-7 h-7 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/40 text-cyan-400 flex items-center justify-center transition-all border border-cyan-500/30">
+                                <i class="fa-solid fa-pen text-[10px]"></i>
+                            </button>
+                            <button onclick="openDeleteModal(${index})" title="Excluir" class="w-7 h-7 rounded-lg bg-pink-500/20 hover:bg-pink-500/40 text-pink-400 flex items-center justify-center transition-all border border-pink-500/30">
+                                <i class="fa-solid fa-trash-can text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            document.getElementById('attendees-modal').classList.remove('hidden');
+        }
+
+        function closeAttendeesModal() {
+            document.getElementById('attendees-modal').classList.add('hidden');
+        }
+
+        // EDIT ACTION LOGIC
+        async function openEditModal(index) {
+            const attendees = await fetchAttendeesFromBackend();
+            if (index >= 0 && index < attendees.length) {
+                editingIndex = index;
+                document.getElementById('edit-guest-input').value = attendees[index];
+                document.getElementById('edit-guest-modal').classList.remove('hidden');
+                setTimeout(() => document.getElementById('edit-guest-input').focus(), 100);
+            }
+        }
+
+        function closeEditModal() {
+            editingIndex = null;
+            document.getElementById('edit-guest-modal').classList.add('hidden');
+        }
+
+        async function saveEditedGuest() {
+            const newName = document.getElementById('edit-guest-input').value.trim();
+            if (!newName) {
+                showModal('Atenção', 'O nome não pode ficar em branco.', 'fa-solid fa-triangle-exclamation');
+                return;
+            }
+
+            if (editingIndex !== null) {
+                await updateAttendeeInBackend(editingIndex, newName);
+                closeEditModal();
+                openAttendeesListModal();
+                updateAttendeeCounter();
+            }
+        }
+
+        // DELETE ACTION LOGIC
+        async function openDeleteModal(index) {
+            const attendees = await fetchAttendeesFromBackend();
+            if (index >= 0 && index < attendees.length) {
+                deletingIndex = index;
+                document.getElementById('delete-guest-name-text').innerHTML = `Tem certeza que deseja remover <strong>"${attendees[index]}"</strong> da lista?`;
+                document.getElementById('delete-confirm-modal').classList.remove('hidden');
+            }
+        }
+
+        function closeDeleteModal() {
+            deletingIndex = null;
+            document.getElementById('delete-confirm-modal').classList.add('hidden');
+        }
+
+        async function confirmDeleteGuest() {
+            if (deletingIndex !== null) {
+                await deleteAttendeeFromBackend(deletingIndex);
+                closeDeleteModal();
+                openAttendeesListModal();
+                updateAttendeeCounter();
+            }
+        }
+
+        function showModal(title, message, iconClass = 'fa-solid fa-party-horn') {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-message').innerText = message;
+            document.getElementById('modal-icon').innerHTML = `<i class="${iconClass}"></i>`;
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
