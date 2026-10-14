@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Aniversário da Marcela - 11 Anos!</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
+    body { background: #0f0c1b; color: #ffffff; min-height: 100vh; padding: 16px; display: flex; flex-direction: column; align-items: center; }
+    .container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 16px; }
+    .card { background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 20px; text-align: center; backdrop-filter: blur(10px); }
+    h1 { font-size: 26px; margin-bottom: 8px; font-weight: 800; }
+    .highlight { color: #e056fd; }
+    .age { color: #6c5ce7; font-size: 32px; font-weight: 900; margin: 8px 0; }
+    .btn-primary { background: linear-gradient(135deg, #e056fd, #6c5ce7); color: white; border: none; padding: 14px 20px; border-radius: 30px; font-weight: bold; font-size: 16px; width: 100%; cursor: pointer; margin-top: 10px; }
+    .btn-secondary { background: rgba(255, 255, 255, 0.15); color: white; border: 1px solid rgba(255, 255, 255, 0.3); padding: 12px 18px; border-radius: 20px; font-weight: 600; font-size: 14px; width: 100%; cursor: pointer; margin-top: 8px; text-decoration: none; display: inline-block; }
+    input[type="text"] { width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.3); color: white; font-size: 16px; margin-bottom: 8px; outline: none; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; padding: 20px; justify-content: center; align-items: center; }
+    .modal-content { background: #1a162b; border-radius: 16px; padding: 20px; width: 100%; max-width: 400px; border: 1px solid rgba(255,255,255,0.2); max-height: 80vh; overflow-y: auto; }
+    .convidado-item { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.08); padding: 10px 14px; border-radius: 10px; margin-bottom: 8px; }
+    .actions btn { background: none; border: none; font-size: 16px; cursor: pointer; margin-left: 8px; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+      <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 12px; color: #a29bfe;">👑 VOCÊ ESTÁ CONVIDADO</p>
+      <h1>Aniversário da <span class="highlight">Marcela</span></h1>
+      <div class="age">11 Anos!</div>
+      <p style="font-size: 14px; color: #ddd;">📅 31/10/2026 (Sábado) | 🕒 14:30 às 21:00</p>
+    </div>
+
+    <!-- Formulário para o Pai/Mãe cadastrar a criança -->
+    <div class="card">
+      <h3>Confirmar Presença (RSVP)</h3>
+      <p style="font-size: 13px; color: #ccc; margin: 8px 0;">Digite abaixo o nome da criança que vai participar:</p>
+      <input type="text" id="nome-crianca" placeholder="Nome da Criança...">
+      <button class="btn-primary" onclick="confirmarPresenca()">Confirmar Criança 🎉</button>
+    </div>
+
+    <!-- Roteiro da Festa -->
+    <div class="card" style="text-align: left;">
+      <h3 style="text-align: center; margin-bottom: 12px;">📍 Roteiro da Festa</h3>
+      
+      <div style="margin-bottom: 16px;">
+        <h4 style="color: #e056fd;">1ª Parada - Casa da Marcela</h4>
+        <p style="font-size: 13px; color: #ccc;">Concentração inicial às 14:30h.</p>
+        <p style="font-size: 12px; color: #fff; margin-top: 4px;">Rua Sargento Pedro Alves, nº 9, Barro Vermelho, Natal - RN</p>
+        <a class="btn-secondary" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Rua+Sargento+Pedro+Alves+9+Barro+Vermelho+Natal+RN">🗺️ Ver no Mapa</a>
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <h4 style="color: #74b9ff;">2ª Parada - Mundo Kids</h4>
+        <p style="font-size: 12px; color: #fff; margin-top: 4px;">Av. Coronel Estevão, 2008, Alecrim, Natal - RN</p>
+        <a class="btn-secondary" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Av+Coronel+Estevao+2008+Alecrim+Natal+RN">🗺️ Ver no Mapa</a>
+      </div>
+
+      <div>
+        <h4 style="color: #55efc4;">3ª Parada - Pizzaria</h4>
+        <p style="font-size: 12px; color: #fff; margin-top: 4px;">Av. Nascimento de Castro, 1810, Lagoa Nova, Natal - RN</p>
+        <a class="btn-secondary" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Av+Nascimento+de+Castro+1810+Lagoa+Nova+Natal+RN">🗺️ Ver no Mapa</a>
+      </div>
+    </div>
+
+    <!-- Botão de ver quem vai (Acesso restrito) -->
+    <div class="card">
+      <button class="btn-secondary" id="btn-ver-quem-vai" onclick="abrirListaComSenha()" style="background: rgba(108, 92, 231, 0.3);">
+        🔒 Ver quem vai (0)
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal para exibir a lista de crianças -->
+  <div class="modal" id="modal-lista">
+    <div class="modal-content">
+      <h3 style="margin-bottom: 12px; text-align: center;">Crianças Confirmadas</h3>
+      <div id="container-convidados">Carregando...</div>
+      <button class="btn-secondary" onclick="fecharModal()" style="margin-top: 12px;">Fechar</button>
+    </div>
+  </div>
+
+  <script>
+    const SENHA_ACESSO = "1234"; // Defina sua senha aqui!
+
+    // Inicia e carrega a contagem inicial ao abrir a página
+    document.addEventListener("DOMContentLoaded", atualizarContagemTotal);
+
+    async function atualizarContagemTotal() {
+      try {
+        const res = await fetch('/api/presencas');
+        const dados = await res.json();
+        document.getElementById('btn-ver-quem-vai').innerText = `🔒 Ver quem vai (${dados.length})`;
+      } catch (err) { console.error(err); }
+    }
+
+    // 1. CADASTRAR CRIANÇA
+    async function confirmarPresenca() {
+      const input = document.getElementById('nome-crianca');
+      const nome = input.value.trim();
+
+      if (!nome) {
+        alert("Por favor, digite o nome da criança!");
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/presencas', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nome })
+        });
+
+        if (res.ok) {
+          alert(`Presença de "${nome}" confirmada com sucesso! 🎉`);
+          input.value = '';
+          atualizarContagemTotal();
+        } else {
+          alert("Erro ao salvar presença.");
+        }
+      } catch (err) { alert("Erro de conexão."); }
+    }
+
+    // 2. VER QUEM VAI (SOLICITA SENHA)
+    function abrirListaComSenha() {
+      const senha = prompt("Digite a senha para ver a lista de crianças:");
+      if (senha === SENHA_ACESSO) {
+        document.getElementById('modal-lista').style.display = 'flex';
+        carregarLista();
+      } else if (senha !== null) {
+        alert("Senha incorreta!");
+      }
+    }
+
+    function fecharModal() {
+      document.getElementById('modal-lista').style.display = 'none';
+    }
+
+    // 3. CARREGAR LISTA
+    async function carregarLista() {
+      const container = document.getElementById('container-convidados');
+      container.innerHTML = "<p style='text-align:center;'>Buscando do banco...</p>";
+
+      try {
+        const res = await fetch('/api/presencas');
+        const convidados = await res.json();
+
+        if (convidados.length === 0) {
+          container.innerHTML = "<p style='text-align:center; color:#aaa;'>Nenhuma criança confirmada ainda.</p>";
+          return;
+        }
+
+        container.innerHTML = convidados.map(c => `
+          <div class="convidado-item">
+            <span>${c.nome}</span>
+            <div>
+              <button onclick="editarCrianca(${c.id}, '${c.nome}')" title="Editar">✏️</button>
+              <button onclick="excluirCrianca(${c.id})" title="Excluir">🗑️</button>
+            </div>
+          </div>
+        `).join('');
+      } catch (err) {
+        container.innerHTML = "<p style='color:#ff7675; text-align:center;'>Erro ao carregar lista.</p>";
+      }
+    }
+
+    // 4. EDITAR E EXCLUIR
+    async function editarCrianca(id, nomeAtual) {
+      const novoNome = prompt("Editar nome da criança:", nomeAtual);
+      if (!novoNome || novoNome.trim() === "" || novoNome === nomeAtual) return;
+
+      await fetch('/api/presencas', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, nome: novoNome.trim() })
+      });
+      carregarLista();
+    }
+
+    async function excluirCrianca(id) {
+      if (!confirm("Deseja mesmo remover esta criança da lista?")) return;
+
+      await fetch(`/api/presencas?id=${id}`, { method: 'DELETE' });
+      carregarLista();
+      atualizarContagemTotal();
+    }
+  </script>
+</body>
+</html>
